@@ -45,3 +45,7 @@ class OrderTaxiPage(BasePage):
     @allure.step('Клик на кнопку Отменить')
     def click_close_order_complete(self):
         self.click_to_element(OrderTaxiPageLocators.BUTTON_CLOSE)
+
+    @allure.step('Поиск кнопки Отменить')
+    def search_close_button(self):
+        return self.find_element_with_wait(OrderTaxiPageLocators.BUTTON_CLOSE).is_displayed()

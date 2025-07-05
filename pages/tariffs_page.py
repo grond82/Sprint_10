@@ -58,3 +58,11 @@ class TariffPage(BasePage):
         text = self.get_text_from_element(TariffsPageLocators.PRICE_WORK_TARIFF)
         price = self.extract_numbers_with_regex(text)
         return price
+
+    @allure.step('Получения активного тарифа')
+    def get_active_tariff(self):
+        return self.find_element_with_wait(TariffsPageLocators.TARIFF_WORK_ACTIVE)
+
+    @allure.step('Клик на Требования к заказу')
+    def click_requirements(self):
+        self.click_to_element(TariffsPageLocators.REQUIREMENTS_LOCATOR)

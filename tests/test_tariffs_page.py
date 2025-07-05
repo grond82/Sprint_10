@@ -1,28 +1,27 @@
 import pytest
 import allure
 from pages.tariffs_page import TariffPage
-from locators.tariffs_page_locators import TariffsPageLocators
 from pages.block_route_page import BlockRoute
+from pages.route_page import RoutePage
 from data import Data
-from helpers import Helpers
 
 class TestTariffPage:
 
     @allure.title('Проверка тарифов')
     def test_open_tariffs_page(self, driver):
-        route = Helpers()
-        route.route(driver)
+        route_page = RoutePage(driver)
+        route_page.enter_route(Data.FIRST_ADDRESS, Data.SECOND_ADDRESS)
         block_route = BlockRoute(driver)
         block_route.click_order_taxi_button()
         tariff_page = TariffPage(driver)
-        active_tariff = tariff_page.find_element_with_wait(TariffsPageLocators.TARIFF_WORK_ACTIVE)
+        active_tariff = tariff_page.get_active_tariff()
         tariffs_name_on_page = tariff_page.get_tariffs_name_on_page()
         assert tariffs_name_on_page == Data.TARIFFS_NAME and active_tariff.get_attribute('class') == 'tcard active'
 
     @allure.title('Проверка блока опций под тарифами')
     def test_visibility_tariff_options(self, driver):
-        route = Helpers()
-        route.route(driver)
+        route_page = RoutePage(driver)
+        route_page.enter_route(Data.FIRST_ADDRESS, Data.SECOND_ADDRESS)
         block_route = BlockRoute(driver)
         block_route.click_order_taxi_button()
         tariff_page = TariffPage(driver)
@@ -43,8 +42,8 @@ class TestTariffPage:
         ]
     )
     def test_tariffs(self, driver, tariff_name, tariff_description):
-        route = Helpers()
-        route.route(driver)
+        route_page = RoutePage(driver)
+        route_page.enter_route(Data.FIRST_ADDRESS, Data.SECOND_ADDRESS)
         block_route = BlockRoute(driver)
         block_route.click_order_taxi_button()
         tariff_page = TariffPage(driver)

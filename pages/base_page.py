@@ -33,9 +33,6 @@ class BasePage:
         element = self.find_element_with_wait(locator)
         ActionChains(self.driver).move_to_element(element).perform()
 
- #   def scroll_down(self):
- #       self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
     def maximize_window(self):
         self.driver.maximize_window()
 
